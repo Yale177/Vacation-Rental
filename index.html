@@ -19,7 +19,7 @@
     --line: #E2D8C6;
     --white: #FFFFFF;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
     font-family: 'Inter', system-ui, sans-serif;
     color: var(--ink);
@@ -52,51 +52,66 @@
     mask: radial-gradient(10px at 14px 14px, transparent 98%, #000) repeat-x;
     -webkit-mask-size: 28px 14px; mask-size: 28px 14px;
   }
-  .eyebrow {
-    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--amber); font-weight: 600; margin-bottom: 8px;
-  }
-  .home-name {
-    font-family: 'Fraunces', Georgia, serif; font-size: 34px; font-weight: 500;
-    line-height: 1.05; letter-spacing: -0.01em;
-  }
+  .eyebrow { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 8px; }
+  .home-name { font-family: 'Fraunces', Georgia, serif; font-size: 34px; font-weight: 500; line-height: 1.05; letter-spacing: -0.01em; }
   .home-loc { font-size: 13.5px; color: rgba(247,242,233,0.78); margin-top: 7px; }
-  .lead { font-size: 14px; line-height: 1.5; color: rgba(247,242,233,0.92); margin-top: 16px; max-width: 36ch; }
+  .lead { font-size: 13.5px; line-height: 1.5; color: rgba(247,242,233,0.9); margin-top: 16px; }
 
-  .qa { padding: 24px 20px 36px; display: flex; flex-direction: column; gap: 14px; }
+  .qa { padding: 22px 20px 36px; display: flex; flex-direction: column; gap: 12px; }
 
   .card {
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: 16px;
-    padding: 18px 18px 16px;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
-  .card .q {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 15px; font-weight: 600; color: var(--sea-deep);
+  .card.open { border-color: #cdbfa6; box-shadow: 0 6px 20px rgba(17,94,89,0.08); }
+
+  .qbtn {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 17px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--sea-deep);
+    text-align: left;
   }
-  .ic {
-    width: 30px; height: 30px; flex-shrink: 0;
-    background: var(--sand); border-radius: 9px;
-    display: grid; place-items: center; font-size: 15px;
-  }
-  .card .a { margin-top: 11px; font-size: 16px; line-height: 1.5; color: var(--ink); padding-left: 40px; }
+  .ic { width: 34px; height: 34px; flex-shrink: 0; background: var(--sand); border-radius: 10px; display: grid; place-items: center; font-size: 16px; transition: background 0.2s ease; }
+  .card.open .ic { background: var(--amber); }
+  .qtext { flex: 1; }
+  .chev { flex-shrink: 0; color: var(--muted); transition: transform 0.28s ease; }
+  .card.open .chev { transform: rotate(180deg); }
+
+  /* smooth auto-height reveal */
+  .answer-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.30s ease; }
+  .card.open .answer-wrap { grid-template-rows: 1fr; }
+  .answer-inner { overflow: hidden; }
+  .answer { padding: 0 18px 18px 64px; font-size: 16px; line-height: 1.5; color: var(--ink); }
 
   .pill {
-    display: inline-block;
+    display: inline-flex; align-items: center; gap: 10px;
     font-family: 'DejaVu Sans Mono', ui-monospace, monospace;
     font-size: 17px; font-weight: 600; letter-spacing: 0.03em;
     background: var(--sand); color: var(--sea-deep);
     border: 1px dashed var(--amber);
-    padding: 8px 14px; border-radius: 10px;
-    user-select: all; -webkit-user-select: all;
+    padding: 8px 8px 8px 14px; border-radius: 10px;
   }
-  .hint { display: block; font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .copy {
+    border: none; background: var(--sea); color: var(--paper);
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+    padding: 6px 11px; border-radius: 7px; cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .copy.done { background: var(--amber); }
 
-  .foot {
-    text-align: center; font-size: 12px; color: var(--muted);
-    padding: 0 24px 30px;
-  }
+  .foot { text-align: center; font-size: 12px; color: var(--muted); padding: 0 24px 30px; }
   .foot .rule { width: 44px; height: 3px; background: var(--amber); margin: 0 auto 14px; border-radius: 2px; }
 </style>
 </head>
@@ -106,26 +121,41 @@
       <div class="eyebrow">Guest Guide</div>
       <div class="home-name">Casa Marea</div>
       <div class="home-loc">Everything you need for your stay</div>
-      <div class="lead">A few quick answers for your stay. Tap and hold any password to copy it.</div>
+      <div class="lead">Tap a question to see the answer.</div>
     </div>
 
-    <div class="qa">
+    <div class="qa" id="qa">
       <div class="card">
-        <div class="q"><span class="ic">📶</span> What's the Wi-Fi password?</div>
-        <div class="a">
-          <span class="pill">CLaude1221</span>
-          <span class="hint">Look for the network in your phone's Wi-Fi settings, then enter this password.</span>
-        </div>
+        <button class="qbtn" aria-expanded="false">
+          <span class="ic">📶</span>
+          <span class="qtext">What's the Wi-Fi password?</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="answer-wrap"><div class="answer-inner"><div class="answer">
+          <span class="pill"><span id="wifi">CLaude1221</span><button class="copy" id="copyBtn">Copy</button></span>
+        </div></div></div>
       </div>
 
       <div class="card">
-        <div class="q"><span class="ic">🍽️</span> Where should we eat?</div>
-        <div class="a">Two solid picks nearby: <strong>Earls</strong> and <strong>The Keg</strong>.</div>
+        <button class="qbtn" aria-expanded="false">
+          <span class="ic">🍽️</span>
+          <span class="qtext">Where should we eat?</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="answer-wrap"><div class="answer-inner"><div class="answer">
+          Two solid picks nearby: <strong>Earls</strong> and <strong>The Keg</strong>.
+        </div></div></div>
       </div>
 
       <div class="card">
-        <div class="q"><span class="ic">🥐</span> What time is breakfast?</div>
-        <div class="a">Breakfast is served at <strong>9:00 AM</strong>.</div>
+        <button class="qbtn" aria-expanded="false">
+          <span class="ic">🥐</span>
+          <span class="qtext">What time is breakfast?</span>
+          <span class="chev">▾</span>
+        </button>
+        <div class="answer-wrap"><div class="answer-inner"><div class="answer">
+          Breakfast is served at <strong>9:00 AM</strong>.
+        </div></div></div>
       </div>
     </div>
 
@@ -134,5 +164,31 @@
       Enjoy your stay. Questions not answered here? Reach out to your host.
     </div>
   </div>
+
+<script>
+  // toggle cards
+  document.getElementById('qa').addEventListener('click', function(e){
+    const btn = e.target.closest('.qbtn');
+    if(!btn) return;
+    const card = btn.parentElement;
+    const open = card.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // copy wifi
+  const copyBtn = document.getElementById('copyBtn');
+  copyBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    const pw = document.getElementById('wifi').textContent;
+    const done = () => { copyBtn.textContent = 'Copied!'; copyBtn.classList.add('done');
+      setTimeout(()=>{ copyBtn.textContent='Copy'; copyBtn.classList.remove('done'); }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(pw).then(done).catch(done);
+    } else {
+      const t=document.createElement('textarea'); t.value=pw; document.body.appendChild(t);
+      t.select(); try{document.execCommand('copy');}catch(_){} t.remove(); done();
+    }
+  });
+</script>
 </body>
 </html>
