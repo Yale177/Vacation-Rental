@@ -9,45 +9,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --sea: #115E59;
-    --sea-deep: #0C4641;
-    --paper: #F7F2E9;
-    --sand: #EFE7D6;
-    --amber: #E08D3C;
-    --ink: #20302E;
-    --muted: #6B7B78;
-    --line: #E2D8C6;
-    --white: #FFFFFF;
+    --sea: #115E59; --sea-deep: #0C4641; --paper: #F7F2E9; --sand: #EFE7D6;
+    --amber: #E08D3C; --ink: #20302E; --muted: #6B7B78; --line: #E2D8C6; --white: #FFFFFF;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
-    font-family: 'Inter', system-ui, sans-serif;
-    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif; color: var(--ink);
     background: radial-gradient(120% 80% at 50% -10%, #1c6f69 0%, var(--sea) 40%, var(--sea-deep) 100%);
-    min-height: 100dvh;
-    display: flex;
-    justify-content: center;
+    min-height: 100dvh; display: flex; justify-content: center;
   }
-  .page {
-    width: 100%;
-    max-width: 480px;
-    background: var(--paper);
-    min-height: 100dvh;
-  }
+  .page { width: 100%; max-width: 480px; background: var(--paper); min-height: 100dvh; }
   @media (min-width: 520px) {
     .page { min-height: auto; margin: 24px 0; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.3); }
   }
-
-  .header {
-    background: var(--sea);
-    color: var(--paper);
-    padding: 30px 26px 26px;
-    position: relative;
-  }
+  .header { background: var(--sea); color: var(--paper); padding: 30px 26px 26px; position: relative; }
   .header::after {
-    content: "";
-    position: absolute; left: 0; right: 0; bottom: -1px; height: 14px;
-    background: var(--paper);
+    content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 14px; background: var(--paper);
     -webkit-mask: radial-gradient(10px at 14px 14px, transparent 98%, #000) repeat-x;
     mask: radial-gradient(10px at 14px 14px, transparent 98%, #000) repeat-x;
     -webkit-mask-size: 28px 14px; mask-size: 28px 14px;
@@ -57,62 +34,77 @@
   .home-loc { font-size: 13.5px; color: rgba(247,242,233,0.78); margin-top: 7px; }
   .lead { font-size: 13.5px; line-height: 1.5; color: rgba(247,242,233,0.9); margin-top: 16px; }
 
-  .qa { padding: 22px 20px 36px; display: flex; flex-direction: column; gap: 12px; }
-
-  .card {
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  .card.open { border-color: #cdbfa6; box-shadow: 0 6px 20px rgba(17,94,89,0.08); }
-
-  .qbtn {
-    width: 100%;
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 17px 18px;
-    font-family: 'Inter', sans-serif;
-    font-size: 15.5px;
-    font-weight: 600;
-    color: var(--sea-deep);
-    text-align: left;
-  }
-  .ic { width: 34px; height: 34px; flex-shrink: 0; background: var(--sand); border-radius: 10px; display: grid; place-items: center; font-size: 16px; transition: background 0.2s ease; }
+  .qa { padding: 22px 20px 110px; display: flex; flex-direction: column; gap: 12px; }
+  .card { background: var(--white); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; transition: border-color .2s, box-shadow .2s; }
+  .card.open { border-color: #cdbfa6; box-shadow: 0 6px 20px rgba(17,94,89,.08); }
+  .qbtn { width: 100%; background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 17px 18px; font-family: 'Inter', sans-serif; font-size: 15.5px; font-weight: 600; color: var(--sea-deep); text-align: left; }
+  .ic { width: 34px; height: 34px; flex-shrink: 0; background: var(--sand); border-radius: 10px; display: grid; place-items: center; font-size: 16px; transition: background .2s; }
   .card.open .ic { background: var(--amber); }
   .qtext { flex: 1; }
-  .chev { flex-shrink: 0; color: var(--muted); transition: transform 0.28s ease; }
+  .chev { color: var(--muted); transition: transform .28s; }
   .card.open .chev { transform: rotate(180deg); }
-
-  /* smooth auto-height reveal */
-  .answer-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.30s ease; }
+  .answer-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
   .card.open .answer-wrap { grid-template-rows: 1fr; }
   .answer-inner { overflow: hidden; }
   .answer { padding: 0 18px 18px 64px; font-size: 16px; line-height: 1.5; color: var(--ink); }
-
-  .pill {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: 'DejaVu Sans Mono', ui-monospace, monospace;
-    font-size: 17px; font-weight: 600; letter-spacing: 0.03em;
-    background: var(--sand); color: var(--sea-deep);
-    border: 1px dashed var(--amber);
-    padding: 8px 8px 8px 14px; border-radius: 10px;
-  }
-  .copy {
-    border: none; background: var(--sea); color: var(--paper);
-    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
-    padding: 6px 11px; border-radius: 7px; cursor: pointer;
-    transition: background 0.2s ease;
-  }
+  .pill { display: inline-flex; align-items: center; gap: 10px; font-family: 'DejaVu Sans Mono', ui-monospace, monospace; font-size: 17px; font-weight: 600; background: var(--sand); color: var(--sea-deep); border: 1px dashed var(--amber); padding: 8px 8px 8px 14px; border-radius: 10px; }
+  .copy { border: none; background: var(--sea); color: var(--paper); font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; padding: 6px 11px; border-radius: 7px; cursor: pointer; }
   .copy.done { background: var(--amber); }
-
-  .foot { text-align: center; font-size: 12px; color: var(--muted); padding: 0 24px 30px; }
+  .foot { text-align: center; font-size: 12px; color: var(--muted); padding: 0 24px 110px; }
   .foot .rule { width: 44px; height: 3px; background: var(--amber); margin: 0 auto 14px; border-radius: 2px; }
+
+  /* ---------- CHAT WIDGET ---------- */
+  /* Centered anchor: matches the page column so the bubble stays aligned
+     to the guide on any screen size instead of sticking to the window edge. */
+  .chat-anchor {
+    position: fixed; top: 0; bottom: 0; left: 0; right: 0;
+    width: 100%; max-width: 480px; margin-inline: auto;
+    pointer-events: none; z-index: 50;
+  }
+  .fab {
+    position: absolute; bottom: 22px; right: 22px; pointer-events: auto;
+    width: 62px; height: 62px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--amber); color: #fff; font-size: 26px;
+    box-shadow: 0 10px 28px rgba(12,70,65,.4); display: grid; place-items: center;
+    transition: transform .18s ease;
+  }
+  .fab:active { transform: scale(.92); }
+  .fab .pulse { position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 0 rgba(224,141,60,.55); animation: pulse 2.4s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(224,141,60,.5); } 70% { box-shadow: 0 0 0 18px rgba(224,141,60,0); } 100% { box-shadow: 0 0 0 0 rgba(224,141,60,0); } }
+
+  .panel {
+    position: absolute; bottom: 22px; right: 22px; z-index: 50;
+    width: min(380px, calc(100% - 44px)); height: min(580px, calc(100dvh - 44px));
+    background: var(--paper); border-radius: 20px; overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0,0,0,.4); display: flex; flex-direction: column;
+    transform: translateY(20px) scale(.96); opacity: 0; pointer-events: none;
+    transition: transform .24s ease, opacity .24s ease;
+  }
+  .panel.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+  .panel-head { background: var(--sea); color: var(--paper); padding: 16px 18px; display: flex; align-items: center; gap: 12px; }
+  .panel-head .avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--amber); display: grid; place-items: center; font-size: 18px; flex-shrink: 0; }
+  .panel-head .t b { font-size: 15px; font-weight: 600; display: block; }
+  .panel-head .t span { font-size: 11.5px; color: rgba(247,242,233,.75); }
+  .panel-head .x { margin-left: auto; background: none; border: none; color: var(--paper); font-size: 22px; cursor: pointer; opacity: .8; }
+  .msgs { flex: 1; overflow-y: auto; padding: 18px 14px 8px; display: flex; flex-direction: column; gap: 10px; }
+  .row { display: flex; }
+  .row.me { justify-content: flex-end; }
+  .b { max-width: 84%; padding: 10px 13px; font-size: 14px; line-height: 1.45; border-radius: 16px; }
+  .b.bot { background: var(--white); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+  .b.bot strong { color: var(--sea-deep); }
+  .b.me { background: var(--sea); color: var(--paper); border-bottom-right-radius: 4px; }
+  .dots { display: inline-flex; gap: 4px; }
+  .dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: blink 1.3s infinite both; }
+  .dots span:nth-child(2){ animation-delay:.18s } .dots span:nth-child(3){ animation-delay:.36s }
+  @keyframes blink { 0%,80%,100%{opacity:.25} 40%{opacity:1} }
+  .chips { display: flex; gap: 7px; overflow-x: auto; padding: 6px 14px 10px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex-shrink: 0; background: var(--sand); border: 1px solid var(--line); color: var(--sea-deep); font: 500 12px 'Inter',sans-serif; padding: 7px 12px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+  .composer { display: flex; gap: 9px; align-items: flex-end; padding: 10px 12px 12px; border-top: 1px solid var(--line); }
+  .composer textarea { flex: 1; resize: none; border: 1px solid var(--line); background: var(--white); border-radius: 20px; padding: 10px 14px; font: 14px 'Inter',sans-serif; color: var(--ink); max-height: 90px; outline: none; }
+  .composer textarea:focus { border-color: var(--sea); }
+  .send { width: 40px; height: 40px; flex-shrink: 0; border: none; border-radius: 50%; background: var(--amber); color: #fff; font-size: 17px; cursor: pointer; }
+  .badge { text-align: center; font-size: 10px; color: var(--muted); padding: 0 0 8px; }
 </style>
 </head>
 <body>
@@ -121,74 +113,143 @@
       <div class="eyebrow">Guest Guide</div>
       <div class="home-name">Casa Marea</div>
       <div class="home-loc">Everything you need for your stay</div>
-      <div class="lead">Tap a question to see the answer.</div>
+      <div class="lead">Tap a question below — or tap the chat bubble to ask the concierge anything.</div>
     </div>
 
     <div class="qa" id="qa">
       <div class="card">
-        <button class="qbtn" aria-expanded="false">
-          <span class="ic">📶</span>
-          <span class="qtext">What's the Wi-Fi password?</span>
-          <span class="chev">▾</span>
-        </button>
-        <div class="answer-wrap"><div class="answer-inner"><div class="answer">
-          <span class="pill"><span id="wifi">CLaude1221</span><button class="copy" id="copyBtn">Copy</button></span>
-        </div></div></div>
+        <button class="qbtn" aria-expanded="false"><span class="ic">📶</span><span class="qtext">What's the Wi-Fi password?</span><span class="chev">▾</span></button>
+        <div class="answer-wrap"><div class="answer-inner"><div class="answer"><span class="pill"><span id="wifi">CLaude1221</span><button class="copy" id="copyBtn">Copy</button></span></div></div></div>
       </div>
-
       <div class="card">
-        <button class="qbtn" aria-expanded="false">
-          <span class="ic">🍽️</span>
-          <span class="qtext">Where should we eat?</span>
-          <span class="chev">▾</span>
-        </button>
-        <div class="answer-wrap"><div class="answer-inner"><div class="answer">
-          Two solid picks nearby: <strong>Earls</strong> and <strong>The Keg</strong>.
-        </div></div></div>
+        <button class="qbtn" aria-expanded="false"><span class="ic">🍽️</span><span class="qtext">Where should we eat?</span><span class="chev">▾</span></button>
+        <div class="answer-wrap"><div class="answer-inner"><div class="answer">Two solid picks nearby: <strong>Earls</strong> and <strong>The Keg</strong>.</div></div></div>
       </div>
-
       <div class="card">
-        <button class="qbtn" aria-expanded="false">
-          <span class="ic">🥐</span>
-          <span class="qtext">What time is breakfast?</span>
-          <span class="chev">▾</span>
-        </button>
-        <div class="answer-wrap"><div class="answer-inner"><div class="answer">
-          Breakfast is served at <strong>9:00 AM</strong>.
-        </div></div></div>
+        <button class="qbtn" aria-expanded="false"><span class="ic">🥐</span><span class="qtext">What time is breakfast?</span><span class="chev">▾</span></button>
+        <div class="answer-wrap"><div class="answer-inner"><div class="answer">Breakfast is served at <strong>9:00 AM</strong>.</div></div></div>
       </div>
     </div>
 
-    <div class="foot">
-      <div class="rule"></div>
-      Enjoy your stay. Questions not answered here? Reach out to your host.
-    </div>
+    <div class="foot"><div class="rule"></div>Enjoy your stay. Or ask the concierge anything, anytime.</div>
   </div>
 
-<script>
-  // toggle cards
-  document.getElementById('qa').addEventListener('click', function(e){
-    const btn = e.target.closest('.qbtn');
-    if(!btn) return;
-    const card = btn.parentElement;
-    const open = card.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
+  <!-- Chat widget (anchored to the centered guide column) -->
+  <div class="chat-anchor">
+  <!-- Chat launcher -->
+  <button class="fab" id="fab" aria-label="Open concierge chat"><span class="pulse"></span>💬</button>
 
-  // copy wifi
-  const copyBtn = document.getElementById('copyBtn');
-  copyBtn.addEventListener('click', function(e){
-    e.stopPropagation();
-    const pw = document.getElementById('wifi').textContent;
-    const done = () => { copyBtn.textContent = 'Copied!'; copyBtn.classList.add('done');
-      setTimeout(()=>{ copyBtn.textContent='Copy'; copyBtn.classList.remove('done'); }, 1600); };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(pw).then(done).catch(done);
-    } else {
-      const t=document.createElement('textarea'); t.value=pw; document.body.appendChild(t);
-      t.select(); try{document.execCommand('copy');}catch(_){} t.remove(); done();
-    }
-  });
+  <!-- Chat panel -->
+  <div class="panel" id="panel">
+    <div class="panel-head">
+      <div class="avatar">🌊</div>
+      <div class="t"><b>Casa Marea Concierge</b><span>Usually replies instantly</span></div>
+      <button class="x" id="closeBtn" aria-label="Close">×</button>
+    </div>
+    <div class="msgs" id="msgs"></div>
+    <div class="chips" id="chips">
+      <button class="chip">Is there parking?</button>
+      <button class="chip">How does the coffee maker work?</button>
+      <button class="chip">What's the checkout time?</button>
+      <button class="chip">Closest grocery store?</button>
+    </div>
+    <div class="composer">
+      <textarea id="input" rows="1" placeholder="Ask anything…"></textarea>
+      <button class="send" id="send" aria-label="Send">↑</button>
+    </div>
+    <div class="badge">Demo concierge — runs on a preview brain, not on any account</div>
+  </div>
+  </div><!-- /chat-anchor -->
+
+<!-- ============================================================
+     DEMO BRAIN  (for showing the experience only)
+     ------------------------------------------------------------
+     The script below makes the chat answer live INSIDE the Claude
+     preview, so you can demo scan-to-chat. It is NOT billed to you
+     or anyone, and it will NOT answer once this file is hosted on
+     GitHub — the preview brain only runs here.
+
+     >>> FOR THE LIVE / CLIENT VERSION <<<
+     Delete this entire <script> block and paste the embed snippet
+     from the chatbot platform (built on the CLIENT'S account)
+     right here. That snippet brings its own bubble + brain and
+     works anywhere the page is hosted. The guide above stays exactly
+     as-is — only the chat engine swaps in.
+     ============================================================ -->
+<script>
+  const PROPERTY_INFO = `
+You are the friendly concierge for "Casa Marea," a beachfront vacation rental at Playa Hermosa.
+Answer ONLY from the details below. Keep replies short, warm, phone-friendly (2-4 sentences).
+If something isn't covered, say you're not sure and suggest texting the host, Maria, at +507 6000-0000.
+
+WI-FI: network CasaMarea-Guest, password CLaude1221.
+CHECK-IN/OUT: check-in 4 PM, checkout 11 AM (late checkout sometimes possible — ask Maria).
+  Front door keypad code 4-7-2-9; locks itself on checkout. Spare key lockbox by garage: 1-1-8-2.
+PARKING: driveway fits 2 cars; free street parking too.
+COFFEE: drip machine + French press (beans in pantry) and a Nespresso (pods in the drawer).
+  Drip: water to the line, one scoop grounds per cup, press the lit button.
+AC: hallway thermostat, 23C is comfy; switch off when you go out.
+TV: smart TV, sign into your own Netflix etc; remote with the blue dot.
+LAUNDRY: washer & dryer in the hall closet, detergent provided.
+TRASH: collection Tuesday & Friday mornings; bins on the side; blue bin = recycling.
+BEACH: 2-min walk down the wooden path; towels in the bench by the door; outdoor rinse station.
+POOL: shared, open 7 AM - 9 PM. Paddleboards & life vests in the garage.
+RULES: no smoking indoors, quiet hours 10 PM - 8 AM, no parties, max 6 guests.
+EAT: La Marea Cantina (seafood, 5-min walk, get the ceviche); Sunset Grill (casual, sunsets, book weekends);
+  Panadería El Faro (bakery & coffee, opens 6:30 AM). Breakfast at the house is served at 9 AM.
+GROCERIES: Tienda Mar (essentials, 3-min walk); Super 99 (full grocery, 10-min drive).
+EMERGENCIES: dial 911. Host Maria +507 6000-0000 (8 AM - 9 PM). Clinic: Centro Médico Costa, 12-min drive.
+`;
+  const msgs = document.getElementById('msgs');
+  const input = document.getElementById('input');
+  const send = document.getElementById('send');
+  const fab = document.getElementById('fab');
+  const panel = document.getElementById('panel');
+  let history = [], busy = false;
+
+  function bubble(text, who) {
+    const row = document.createElement('div'); row.className = 'row ' + who;
+    const b = document.createElement('div'); b.className = 'b ' + (who === 'me' ? 'me' : 'bot');
+    b.innerHTML = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+    row.appendChild(b); msgs.appendChild(row); msgs.scrollTop = msgs.scrollHeight; return b;
+  }
+  function typing(){ const r=document.createElement('div'); r.className='row bot'; r.id='typing';
+    r.innerHTML='<div class="b bot"><span class="dots"><span></span><span></span><span></span></span></div>';
+    msgs.appendChild(r); msgs.scrollTop=msgs.scrollHeight; }
+  function untyping(){ const t=document.getElementById('typing'); if(t) t.remove(); }
+
+  async function ask(q){
+    if(busy || !q.trim()) return; busy = true; send.disabled = true;
+    bubble(q,'me'); history.push({role:'user',content:q}); typing();
+    try{
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1000, system:PROPERTY_INFO, messages:history })
+      });
+      const data = await res.json();
+      const reply = (data.content||[]).map(p=>p.type==='text'?p.text:'').join('\n').trim()
+        || "I'm not sure — try texting Maria at +507 6000-0000.";
+      untyping(); bubble(reply,'bot'); history.push({role:'assistant',content:reply});
+    }catch(e){ untyping(); bubble("(Demo note: the preview brain only answers inside Claude. Once your client's chatbot snippet is in place, this works on the live site too.)",'bot'); }
+    finally{ busy=false; send.disabled=false; input.focus(); }
+  }
+  function submit(){ const q=input.value.trim(); if(!q) return; input.value=''; input.style.height='auto'; ask(q); }
+
+  send.onclick = submit;
+  input.addEventListener('keydown', e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); submit(); }});
+  input.addEventListener('input', ()=>{ input.style.height='auto'; input.style.height=Math.min(input.scrollHeight,90)+'px'; });
+  document.getElementById('chips').addEventListener('click', e=>{ if(e.target.classList.contains('chip')) ask(e.target.textContent); });
+  fab.onclick = ()=>{ panel.classList.add('open'); fab.style.display='none'; if(!history.length) bubble("Hi! I'm the Casa Marea concierge 🌊 Ask me anything about your stay.",'bot'); input.focus(); };
+  document.getElementById('closeBtn').onclick = ()=>{ panel.classList.remove('open'); fab.style.display='grid'; };
+
+  // guide card toggles + copy
+  document.getElementById('qa').addEventListener('click', e=>{ const b=e.target.closest('.qbtn'); if(!b) return;
+    const open=b.parentElement.classList.toggle('open'); b.setAttribute('aria-expanded', open?'true':'false'); });
+  const copyBtn=document.getElementById('copyBtn');
+  copyBtn.addEventListener('click', e=>{ e.stopPropagation(); const pw=document.getElementById('wifi').textContent;
+    const ok=()=>{ copyBtn.textContent='Copied!'; copyBtn.classList.add('done'); setTimeout(()=>{copyBtn.textContent='Copy';copyBtn.classList.remove('done');},1600); };
+    (navigator.clipboard?.writeText(pw).then(ok).catch(ok)) || ok(); });
 </script>
 </body>
 </html>
