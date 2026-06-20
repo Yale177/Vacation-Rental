@@ -231,7 +231,7 @@ EMERGENCIES: dial 911. Host Maria +507 6000-0000 (8 AM - 9 PM). Clinic: Centro M
       const reply = (data.content||[]).map(p=>p.type==='text'?p.text:'').join('\n').trim()
         || "I'm not sure — try texting Maria at +507 6000-0000.";
       untyping(); bubble(reply,'bot'); history.push({role:'assistant',content:reply});
-    }catch(e){ untyping(); bubble("(Demo note: the preview brain only answers inside Claude. Once your client's chatbot snippet is in place, this works on the live site too.)",'bot'); }
+    }catch(e){ untyping(); bubble("Sorry — I'm having a little trouble connecting right now. Please try again in a moment, or text the host at +507 6000-0000.",'bot'); }
     finally{ busy=false; send.disabled=false; input.focus(); }
   }
   function submit(){ const q=input.value.trim(); if(!q) return; input.value=''; input.style.height='auto'; ask(q); }
